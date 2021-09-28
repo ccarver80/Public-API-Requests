@@ -3,4 +3,3 @@ Tech Degree project #5: Using Fetch API to use Random User Generator API (https:
 
 
 ## View this website [here](https://ccarver80.github.io/Public-API-Requests/)
-
