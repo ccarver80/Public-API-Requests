@@ -42,9 +42,9 @@ function addUserToGallery(img, first, last, email, city, state) {
   cityStatePara.insertAdjacentHTML("beforeend", `${city}, ${state}`);
   divInfoContainer.appendChild(cityStatePara);
 }
-//-------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------
 //     Function to create Modal when card is clicked on
-//-------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------------
 
 function createModal(img, firstname, lastname, email, city, phone, address, birthday) {
   //-------Create Modal Container Div and add it before the script tag-----------------------
@@ -109,7 +109,9 @@ function createModal(img, firstname, lastname, email, city, phone, address, birt
   modalBirthday.className = 'modal-text'; 
   modalBirthday.insertAdjacentHTML('beforeend', `Birthday: ${birthday}`);
   modalInfoDiv.appendChild(modalBirthday);
+  //-----------------------------------------------------------------------------------------------------
 }
+
 
 //------------------------------------------------------------------
 //    Function to add click event listener to all the div cards
@@ -133,6 +135,8 @@ function clickOnCardEvent() {
         ${employeeList[i].location.postcode}
         `;
       let clickBirthday = employeeList[i].dob.date.slice(0, 10) // <----- slice off time from dob
+      let splitstr = clickBirthday.split("") //split to array
+      let formatBirthDate = `${splitstr[5]}${splitstr[6]}${splitstr[4]}${splitstr[8]}${splitstr[9]}${splitstr[7]}${splitstr[0]}${splitstr[1]}${splitstr[2]}${splitstr[3]}` //reformat to correct date
       //call function and pass in all arguments to add to modal
       createModal(
         clickImg,
@@ -142,18 +146,18 @@ function clickOnCardEvent() {
         clickCity,
         clickPhone,
         clickAddress,
-        clickBirthday
+        formatBirthDate
       );
     });
   }
 }
-let employeeList;
+let employeeList; //listed globaly to use in multiple functions 
 
 //-----------------------------------------------------------------------------
 //    Get data from randomuser API
 //----------------------------------------------------------------------------
 
-fetch("https://randomuser.me/api/?results=12")
+fetch("https://randomuser.me/api/?results=12&nat=us") // api fetch 12 users and nationality set to "US"
   .then((res) => res.json())
   .then((data) => {
     employeeList = data.results;
@@ -170,5 +174,3 @@ fetch("https://randomuser.me/api/?results=12")
   .then(() => clickOnCardEvent())
   .then()
   .catch((err) => Error(err));
-
-
